@@ -254,21 +254,21 @@ magisk_mod_copy() {
     # INSTALL APPS
     unzip -pq $ZIP system/app/$APP1/$APP1.apk > $MODPATH$SYSTEM/$APPDIR/$APP1/$APP1.apk
     # INSTALL LIBRARIES
-    unzip -pq $MODPATH$SYSTEM/$APPDIR/$APP1/$APP1.apk assets/presets/TransducerEQ_XML/JBL_Micro_Wireless/JBL_MICRO_WIRELESS_TEQ_v2.xml > $MODPATH$SYSTEM/etc/presets/TransducerEQ_XML/JBL_Micro_Wireless/JBL_MICRO_WIRELESS_TEQ_v2.xml
-    unzip -pq $MODPATH$SYSTEM/$APPDIR/$APP1/$APP1.apk assets/presets/TransducerEQ_XML/JBL_Flip/M810_BT_TEQv2.xml > $MODPATH$SYSTEM/etc/presets/TransducerEQ_XML/JBL_Flip/M810_BT_TEQv2.xml
-    unzip -pq $MODPATH$SYSTEM/$APPDIR/$APP1/$APP1.apk assets/presets/TransducerEQ_XML/Fugoo_Speaker/Fugoo_v1_TEQ_v1.xml > $MODPATH$SYSTEM/etc/presets/TransducerEQ_XML/Fugoo_Speaker/Fugoo_v1_TEQ_v1.xml
-    unzip -pq $MODPATH$SYSTEM/$APPDIR/$APP1/$APP1.apk assets/presets/TransducerEQ_XML/Foxconn/TransducerEQ.xml > $MODPATH$SYSTEM/etc/presets/TransducerEQ_XML/Foxconn/TransducerEQ.xml
     unzip -pq $MODPATH$SYSTEM/$APPDIR/$APP1/$APP1.apk assets/presets/presets.xml > $MODPATH$SYSTEM/etc/presets/presets.xml
+    unzip -pq $MODPATH$SYSTEM/$APPDIR/$APP1/$APP1.apk assets/presets/TransducerEQ_XML/Foxconn/TransducerEQ.xml > $MODPATH$SYSTEM/etc/presets/TransducerEQ_XML/Foxconn/TransducerEQ.xml
+    unzip -pq $MODPATH$SYSTEM/$APPDIR/$APP1/$APP1.apk assets/presets/TransducerEQ_XML/Fugoo_Speaker/Fugoo_v1_TEQ_v1.xml > $MODPATH$SYSTEM/etc/presets/TransducerEQ_XML/Fugoo_Speaker/Fugoo_v1_TEQ_v1.xml
+    unzip -pq $MODPATH$SYSTEM/$APPDIR/$APP1/$APP1.apk assets/presets/TransducerEQ_XML/JBL_Flip/M810_BT_TEQ_v2.xml > $MODPATH$SYSTEM/etc/presets/TransducerEQ_XML/JBL_Flip/M810_BT_TEQ_v2.xml
+    unzip -pq $MODPATH$SYSTEM/$APPDIR/$APP1/$APP1.apk assets/presets/TransducerEQ_XML/JBL_Micro_Wireless/JBL_MICRO_WIRELESS_TEQ_v2.xml > $MODPATH$SYSTEM/etc/presets/TransducerEQ_XML/JBL_Micro_Wireless/JBL_MICRO_WIRELESS_TEQ_v2.xml
   else
     ui_print "    Installing for Lollipop and below..."
     # INSTALL APPS
     unzip -pq $ZIP system/app/$APP1/$APP1.apk > $MODPATH$SYSTEM/$APPDIR/$APP1.apk
     # INSTALL LIBRARIES
-    unzip -pq $MODPATH$SYSTEM/$APPDIR/$APP1.apk assets/presets/TransducerEQ_XML/JBL_Micro_Wireless/JBL_MICRO_WIRELESS_TEQ_v2.xml > $MODPATH$SYSTEM/etc/presets/TransducerEQ_XML/JBL_Micro_Wireless/JBL_MICRO_WIRELESS_TEQ_v2.xml
-    unzip -pq $MODPATH$SYSTEM/$APPDIR/$APP1.apk assets/presets/TransducerEQ_XML/JBL_Flip/M810_BT_TEQv2.xml > $MODPATH$SYSTEM/etc/presets/TransducerEQ_XML/JBL_Flip/M810_BT_TEQv2.xml
-    unzip -pq $MODPATH$SYSTEM/$APPDIR/$APP1.apk assets/presets/TransducerEQ_XML/Fugoo_Speaker/Fugoo_v1_TEQ_v1.xml > $MODPATH$SYSTEM/etc/presets/TransducerEQ_XML/Fugoo_Speaker/Fugoo_v1_TEQ_v1.xml
-    unzip -pq $MODPATH$SYSTEM/$APPDIR/$APP1.apk assets/presets/TransducerEQ_XML/Foxconn/TransducerEQ.xml > $MODPATH$SYSTEM/etc/presets/TransducerEQ_XML/Foxconn/TransducerEQ.xml
     unzip -pq $MODPATH$SYSTEM/$APPDIR/$APP1.apk assets/presets/presets.xml > $MODPATH$SYSTEM/etc/presets/presets.xml
+    unzip -pq $MODPATH$SYSTEM/$APPDIR/$APP1.apk assets/presets/TransducerEQ_XML/Foxconn/TransducerEQ.xml > $MODPATH$SYSTEM/etc/presets/TransducerEQ_XML/Foxconn/TransducerEQ.xml
+    unzip -pq $MODPATH$SYSTEM/$APPDIR/$APP1.apk assets/presets/TransducerEQ_XML/Fugoo_Speaker/Fugoo_v1_TEQ_v1.xml > $MODPATH$SYSTEM/etc/presets/TransducerEQ_XML/Fugoo_Speaker/Fugoo_v1_TEQ_v1.xml
+    unzip -pq $MODPATH$SYSTEM/$APPDIR/$APP1.apk assets/presets/TransducerEQ_XML/JBL_Flip/M810_BT_TEQ_v2.xml > $MODPATH$SYSTEM/etc/presets/TransducerEQ_XML/JBL_Flip/M810_BT_TEQ_v2.xml
+    unzip -pq $MODPATH$SYSTEM/$APPDIR/$APP1.apk assets/presets/TransducerEQ_XML/JBL_Micro_Wireless/JBL_MICRO_WIRELESS_TEQ_v2.xml > $MODPATH$SYSTEM/etc/presets/TransducerEQ_XML/JBL_Micro_Wireless/JBL_MICRO_WIRELESS_TEQ_v2.xml
   fi
   unzip -pq $ZIP system/lib/soundfx/libam3daudioenhancement.so > $MODPATH$SYSTEM/lib/soundfx/libam3daudioenhancement.so
   #### ^ INSERT YOUR FILE INSTALL ^ ####
@@ -427,7 +427,7 @@ sys_mod_wipe() {
   rm -f $SYSTEM/su.d/50audiotweaks.sh
   #### ^ INSERT YOUR FILE REMOVALS ^ ####
   
-  #### v INSERT YOUR REMOVE PATCH, RESTORE, & BACKU v ####
+  #### v INSERT YOUR REMOVE PATCH v ####
   # REMOVE LIBRARIES & EFFECTS
   ui_print "   Removing library & effect lines..."
   for CFG in $CONFIG_FILE $OFFLOAD_CONFIG $OTHER_VENDOR_FILE $HTC_CONFIG_FILE $VENDOR_CONFIG; do
@@ -436,6 +436,7 @@ sys_mod_wipe() {
 	  sed -i '/am3daudioenhancement {/,/}/d' $CFG
     fi
   done
+  #### ^ INSERT YOUR REMOVE PATCH ^ ####
 
   # REPLACE VENDOR FILE WITH PREVIOUS BACKUP
   if [ -f $VENDOR_CONFIG ] && [ -f $VENDOR_CONFIG.bak ]; then
@@ -450,7 +451,6 @@ sys_mod_wipe() {
       cp -f $BACKUP $BACKUP.bak
     fi
   done
-  #### ^ INSERT YOUR REMOVE PATCH, RESTORE, & BACKUP ^ ####
 }
 
 sys_mod_directory() {
@@ -504,6 +504,15 @@ sys_mod_copy() {
   ########## ^ DO NOT REMOVE ^ ##########
 
   #### v INSERT YOUR FILE INSTALL v ####
+  # PREINSTALL LIBRARIES
+  ui_print "   Preinstalling libraries..."
+  unzip -pq $INSTALLER/system/lib/soundfx/libam3daudioenhancement.so > $SYSTEM/lib/soundfx/libam3daudioenhancement.so
+  unzip -pq $INSTALLER/system/app/$APP1/$APP1.apk assets/presets/TransducerEQ_XML/Foxconn/TransducerEQ.xml > $SYSTEM/etc/presets/TransducerEQ_XML/Foxconn/TransducerEQ.xml
+  unzip -pq $INSTALLER/system/app/$APP1/$APP1.apk assets/presets/TransducerEQ_XML/Fugoo_Speaker/Fugoo_v1_TEQ_v1.xml > $SYSTEM/etc/presets/TransducerEQ_XML/Fugoo_Speaker/Fugoo_v1_TEQ_v1.xml
+  unzip -pq $INSTALLER/system/app/$APP1/$APP1.apk assets/presets/TransducerEQ_XML/JBL_Flip/M810_BT_TEQ_v2.xml > $SYSTEM/etc/presets/TransducerEQ_XML/JBL_Flip/M810_BT_TEQ_v2.xml
+  unzip -pq $INSTALLER/system/app/$APP1/$APP1.apk assets/presets/TransducerEQ_XML/JBL_Micro_Wireless/JBL_MICRO_WIRELESS_TEQ_v2.xml > $SYSTEM/etc/presets/TransducerEQ_XML/JBL_Micro_Wireless/JBL_MICRO_WIRELESS_TEQ_v2.xml
+
+  # INSTALL APPS
   if [ "$API" -ge "21" ]; then
     ui_print "   Installing apps for Lollipop and above..."
     sys_cp_ch $INSTALLER/system/app/$APP1/$APP1.apk $SYSTEM/$APPDIR/$APP1/$APP1.apk 0644
@@ -511,13 +520,6 @@ sys_mod_copy() {
     ui_print "   Installing apps for Lollipop and below..."
     sys_cp_ch $INSTALLER/system/app/$APP1.apk $SYSTEM/$APPDIR/$APP1.apk 0644
   fi
-
-  ui_print "   Installing libraries..."
-  unzip -pq $INSTALLER/system/app/$APP1/$APP1.apk assets/presets/TransducerEQ_XML/JBL_Micro_Wireless/JBL_MICRO_WIRELESS_TEQ_v2.xml > $SYSTEM/etc/presets/TransducerEQ_XML/JBL_Micro_Wireless/JBL_MICRO_WIRELESS_TEQ_v2.xml
-  unzip -pq $INSTALLER/system/app/$APP1/$APP1.apk assets/presets/TransducerEQ_XML/JBL_Flip/M810_BT_TEQv2.xml > $SYSTEM/etc/presets/TransducerEQ_XML/JBL_Flip/M810_BT_TEQv2.xml
-  unzip -pq $INSTALLER/system/app/$APP1/$APP1.apk assets/presets/TransducerEQ_XML/Fugoo_Speaker/Fugoo_v1_TEQ_v1.xml > $SYSTEM/etc/presets/TransducerEQ_XML/Fugoo_Speaker/Fugoo_v1_TEQ_v1.xml
-  unzip -pq $INSTALLER/system/app/$APP1/$APP1.apk assets/presets/TransducerEQ_XML/Foxconn/TransducerEQ.xml > $SYSTEM/etc/presets/TransducerEQ_XML/Foxconn/TransducerEQ.xml
-  unzip -pq $INSTALLER/system/lib/soundfx/libam3daudioenhancement.so > $SYSTEM/lib/soundfx/libam3daudioenhancement.so
 
   #INSTALL SCRIPTS
   if [ "$suimg" ] || [ -d /su ] || [ -f $SYSTEM/xbin/daemonsu ] || [ -f $SYSTEM/xbin/su ] || [ -f $SYSTEM/xbin/sugote ] || [ -d $SYSTEM/etc/init.d ]; then
