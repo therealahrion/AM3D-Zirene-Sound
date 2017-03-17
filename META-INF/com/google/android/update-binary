@@ -15,8 +15,6 @@ safe_mount() {
 
 safe_mount /system
 
-suimg=$(ls /cache/su.img /data/su.img 2>/dev/null);
-
 SLOT=$(getprop ro.boot.slot_suffix 2>/tmp/null)
 if [ "$SLOT" ]; then
   SYSTEM=/system/system
@@ -30,6 +28,8 @@ if [ ! -d "$SYSTEM/vendor" ] || [ -L "$SYSTEM/vendor" ]; then
 elif [ -d "$SYSTEM/vendor" ] || [ -L "/vendor" ]; then
   VENDOR=$SYSTEM/vendor
 fi
+
+suimg=$(ls /cache/su.img /data/su.img 2>/dev/null);
 
 if [ -d $SYSTEM/priv-app ]; then
   APPDIR=priv-app
