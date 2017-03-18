@@ -187,7 +187,7 @@ magisk_install() {
   UNIFY="$MODPATH"
   MK_SFFX=""
   CP_SFFX=""
-  PATCH="/magisk/audmodlib"
+  PATCH="/cache/magisk/audmodlib"
 }
 
 system_install() {
@@ -232,10 +232,10 @@ app_install_logic() {
   #### v INSERT MORE APPS IF MORE EXIST v ####
   if [ "$API" -ge "21" ]; then
     APPTXT="   Installing apps for Lollipop and above..."
-    APP1PATH=$APPDIR/$APP1/$APP1
+    APP1PATH=$APPDIR/$APP1
   else
     APPTXT="   Installing apps for Lollipop and below..."
-    APP1PATH=$APPDIR/$APP1
+    APP1PATH=$APPDIR
   fi
   #### ^ INSERT MORE APPS IF MORE EXIST ^ ####
 }
@@ -343,8 +343,6 @@ mod_copy() {
     fi
   fi
   #### ^ INSERT YOUR FILE INSTALL ^ ####
-  
-  
 }
 
 audmodlib() {
