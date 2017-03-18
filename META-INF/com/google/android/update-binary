@@ -206,9 +206,10 @@ system_install() {
 # Instructions:
 # 
 # 1. This is a unified installer for both Magisk and /system/ install, so be sure to
-#    follow the template provided for "magisk_", "audmodlib_patch", & "sys_"
+#    follow the template provided for "app_install_logic", "sys_mod_wipe", "mod_xx",
+#    & "mod_patch"
 # 2. audmodlib and files with the prefix as such need to remain untouched unless
-#    an update has occured, however use audmodlib_patch to remove and then
+#    an update has occured, however use mod_patch to remove and then
 #    add the lines corresponding to your mod
 # 3. If applicable, make "APP1", etc. to be the same name as your .apk/app folder
 #    in system/app/ (i.e. APP1=Ax, APP2=ViPER4Android, APP3=AM3DZirene and so on)
@@ -239,6 +240,68 @@ app_install_logic() {
     APP1PATH=$APPDIR
   fi
   #### ^ INSERT MORE APPS IF MORE EXIST ^ ####
+}
+
+sys_mod_wipe() {
+  ########################################################################################
+  # Wipe before System install
+  ########################################################################################
+
+  ########## v DO NOT REMOVE v ##########
+  #### CLEANING UP ####
+  ui_print " "
+  ui_print "- Cleaning up previous installations -"
+  ########## ^ DO NOT REMOVE ^ ##########
+
+  #### v INSERT YOUR FILE REMOVALS v ####
+  # REMOVE FILES
+  ui_print "   Removing files..."
+  rm -rf /data/app/com.fihtdc.am3dfx.todo-1
+  rm -rf /data/app/com.fihtdc.am3dfx.todo-2
+  rm -rf /data/app/com.fihtdc.am3dfx.todo-3
+  rm -rf /data/dalvik-cache/profiles/com.fihtdc.am3dfx.todo
+  rm -rf /data/data/com.fihtdc.am3dfx.todo
+  rm -rf $SYSTEM/etc/presets
+  rm -rf $SYSTEM/app/$APP1
+  rm -rf $SYSTEM/priv-app/$APP1
+  rm -f $SYSTEM/addon.d/99$MODID.sh
+  rm -f $SYSTEM/app/$APP1.apk
+  rm -f $SYSTEM/app/$APP1/$APP1.apk
+  rm -f $SYSTEM/etc/init.d/50$MODID
+  rm -f $SYSTEM/etc/init.d/50audiotweaks
+  rm -f $SYSTEM/lib/soundfx/libam3daudioenhancement.so
+  rm -f $SYSTEM/priv-app/$APP1.apk
+  rm -f $SYSTEM/priv-app/$APP1/$APP1.apk
+  rm -f /su/su.d/50$MODID.sh
+  rm -f /su/su.d/50audiotweaks.sh
+  rm -f $SYSTEM/su.d/50$MODID.sh
+  rm -f $SYSTEM/su.d/50audiotweaks.sh
+  #### ^ INSERT YOUR FILE REMOVALS ^ ####
+  
+  #### v INSERT YOUR REMOVE PATCH v ####
+  # REMOVE LIBRARIES & EFFECTS
+  ui_print "   Removing library & effect lines..."
+  for CFG in $CONFIG_FILE $OFFLOAD_CONFIG $OTHER_VENDOR_FILE $HTC_CONFIG_FILE $VENDOR_CONFIG; do
+    if [ -f $CFG ]; then
+      # REMOVE LIBRARY & EFFECTS
+	  sed -i '/am3daudioenhancement {/,/}/d' $CFG
+    fi
+  done
+  #### ^ INSERT YOUR REMOVE PATCH ^ ####
+
+  # REPLACE VENDOR FILE WITH PREVIOUS BACKUP
+  if [ -f $VENDOR_CONFIG ] && [ -f $VENDOR_CONFIG.bak ]; then
+    # RESTORE BACKED UP CONFIGS
+    cp -af $VENDOR_CONFIG.bak $VENDOR_CONFIG
+  fi
+  
+  # BACKUP CONFIGS
+  ui_print "   Backing up existing audio_effects cfg files..."
+  for BACKUP in $CONFIG_FILE $OFFLOAD_CONFIG $OTHER_VENDOR_FILE $HTC_CONFIG_FILE $VENDOR_CONFIG; do
+    if [ -f $BACKUP ]; then
+      cp -f $BACKUP $BACKUP.bak
+    fi
+  done
 }
 
 mod_directory() {
@@ -471,68 +534,6 @@ mod_patch() {
   #### ^ INSERT YOUR FILE PATCHES ^ ####
 }
 
-sys_mod_wipe() {
-  ########################################################################################
-  # Wipe before System install
-  ########################################################################################
-
-  ########## v DO NOT REMOVE v ##########
-  #### CLEANING UP ####
-  ui_print " "
-  ui_print "- Cleaning up previous installations -"
-  ########## ^ DO NOT REMOVE ^ ##########
-
-  #### v INSERT YOUR FILE REMOVALS v ####
-  # REMOVE FILES
-  ui_print "   Removing files..."
-  rm -rf /data/app/com.fihtdc.am3dfx.todo-1
-  rm -rf /data/app/com.fihtdc.am3dfx.todo-2
-  rm -rf /data/app/com.fihtdc.am3dfx.todo-3
-  rm -rf /data/dalvik-cache/profiles/com.fihtdc.am3dfx.todo
-  rm -rf /data/data/com.fihtdc.am3dfx.todo
-  rm -rf $SYSTEM/etc/presets
-  rm -rf $SYSTEM/app/$APP1
-  rm -rf $SYSTEM/priv-app/$APP1
-  rm -f $SYSTEM/addon.d/99$MODID.sh
-  rm -f $SYSTEM/app/$APP1.apk
-  rm -f $SYSTEM/app/$APP1/$APP1.apk
-  rm -f $SYSTEM/etc/init.d/50$MODID
-  rm -f $SYSTEM/etc/init.d/50audiotweaks
-  rm -f $SYSTEM/lib/soundfx/libam3daudioenhancement.so
-  rm -f $SYSTEM/priv-app/$APP1.apk
-  rm -f $SYSTEM/priv-app/$APP1/$APP1.apk
-  rm -f /su/su.d/50$MODID.sh
-  rm -f /su/su.d/50audiotweaks.sh
-  rm -f $SYSTEM/su.d/50$MODID.sh
-  rm -f $SYSTEM/su.d/50audiotweaks.sh
-  #### ^ INSERT YOUR FILE REMOVALS ^ ####
-  
-  #### v INSERT YOUR REMOVE PATCH v ####
-  # REMOVE LIBRARIES & EFFECTS
-  ui_print "   Removing library & effect lines..."
-  for CFG in $CONFIG_FILE $OFFLOAD_CONFIG $OTHER_VENDOR_FILE $HTC_CONFIG_FILE $VENDOR_CONFIG; do
-    if [ -f $CFG ]; then
-      # REMOVE LIBRARY & EFFECTS
-	  sed -i '/am3daudioenhancement {/,/}/d' $CFG
-    fi
-  done
-  #### ^ INSERT YOUR REMOVE PATCH ^ ####
-
-  # REPLACE VENDOR FILE WITH PREVIOUS BACKUP
-  if [ -f $VENDOR_CONFIG ] && [ -f $VENDOR_CONFIG.bak ]; then
-    # RESTORE BACKED UP CONFIGS
-    cp -af $VENDOR_CONFIG.bak $VENDOR_CONFIG
-  fi
-  
-  # BACKUP CONFIGS
-  ui_print "   Backing up existing audio_effects cfg files..."
-  for BACKUP in $CONFIG_FILE $OFFLOAD_CONFIG $OTHER_VENDOR_FILE $HTC_CONFIG_FILE $VENDOR_CONFIG; do
-    if [ -f $BACKUP ]; then
-      cp -f $BACKUP $BACKUP.bak
-    fi
-  done
-}
-
 readlink /proc/$$/fd/$OUTFD 2>/dev/null | grep /tmp >/dev/null
 if [ "$?" -eq "0" ]; then
   OUTFD=0
@@ -591,9 +592,6 @@ AUDMODLIBPATH=$MOUNTPATH/$AUDMODLIBID
 mkdir -p $INSTALLER
 cd $INSTALLER
 unzip -o "$ZIP" "common/*" module.prop
-
-# EXTRACT INSTALL FILES
-unzip -o "$ZIP" "system/*"
 
 ##########################################################################################
 # Main
@@ -686,7 +684,7 @@ if (is_mounted /data); then
     ui_print " "
     ui_print "    --------- INSTALLATION SUCCESSFUL ---------"
     ui_print " "
-    ui_print "Unified installer brought to you by ahrion @ XDA Developers"
+    ui_print "Installer brought to you by ahrion @ XDA"
 	ui_print " "
 	exit 0;
   fi
@@ -807,7 +805,7 @@ ui_print " "
 ui_print "    --------- INSTALLATION SUCCESSFUL ---------"
 
 ui_print " "
-ui_print "Unified installer brought to you by ahrion @ XDA Developers"
+ui_print "Installer brought to you by ahrion @ XDA"
 
 # Please leave this message in your flashable zip for credits :)
 ui_print " "
