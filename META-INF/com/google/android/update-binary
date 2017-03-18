@@ -17,6 +17,7 @@ safe_mount /system
 
 SLOT=$(getprop ro.boot.slot_suffix 2>/tmp/null)
 if [ "$SLOT" ]; then
+  safe_mount /system/system
   SYSTEM=/system/system
 else
   SYSTEM=/system
@@ -253,7 +254,7 @@ mod_directory() {
   # CREATING DIRECTORIES
   ui_print "   Creating directories..."
 
-  if [ -f "$MAGISK" = true ]; then
+  if [ "$MAGISK" = true ]; then
     rm -rf $MODPATH 2>/dev/null
     mkdir -p $MODPATH
   fi
@@ -261,15 +262,15 @@ mod_directory() {
 
   #### v INSERT YOUR DIRECTORY MAKING v ####
   app_install_logic
-  $MK_PRFX $MODPATH$SYSTEM/$APP1PATH$MK_SFFX
+  $MK_PRFX $UNIFY$SYSTEM/$APP1PATH$MK_SFFX
 
-  $MK_PRFX $MODPATH$SYSTEM/etc/presets/TransducerEQ_XML/JBL_Micro_Wireless$MK_SFFX
-  $MK_PRFX $MODPATH$SYSTEM/etc/presets/TransducerEQ_XML/JBL_Flip$MK_SFFX
-  $MK_PRFX $MODPATH$SYSTEM/etc/presets/TransducerEQ_XML/Fugoo_Speaker$MK_SFFX
-  $MK_PRFX $MODPATH$SYSTEM/etc/presets/TransducerEQ_XML/Foxconn$MK_SFFX
-  $MK_PRFX $MODPATH$SYSTEM/lib/soundfx$MK_SFFX
+  $MK_PRFX $UNIFY$SYSTEM/etc/presets/TransducerEQ_XML/JBL_Micro_Wireless$MK_SFFX
+  $MK_PRFX $UNIFY$SYSTEM/etc/presets/TransducerEQ_XML/JBL_Flip$MK_SFFX
+  $MK_PRFX $UNIFY$SYSTEM/etc/presets/TransducerEQ_XML/Fugoo_Speaker$MK_SFFX
+  $MK_PRFX $UNIFY$SYSTEM/etc/presets/TransducerEQ_XML/Foxconn$MK_SFFX
+  $MK_PRFX $UNIFY$SYSTEM/lib/soundfx$MK_SFFX
   
-  if [ -f "$MAGISK" = false ]; then
+  if [ "$MAGISK" = false ]; then
     if [ -d $SYSTEM/addon.d ]; then
       sys_mk_ch $SYSTEM/addon.d 0755
     fi
@@ -295,10 +296,11 @@ mod_copy() {
   ########## ^ DO NOT REMOVE ^ ##########
 
   #### v INSERT YOUR FILE INSTALL v ####
-  ui_print "   Installing apps & libraries..."
   ui_print "$APPTXT"
   # INSTALL APPS
   $CP_PRFX $INSTALLER/system/app/$APP1/$APP1.apk $UNIFY$SYSTEM/$APP1PATH/$APP1.apk$CP_SFFX
+  
+  ui_print "   Installing libraries..."
   # INSTALL LIBRARIES
   unzip -pq $INSTALLER/system/app/$APP1/$APP1.apk assets/presets/presets.xml > $UNIFY$SYSTEM/etc/presets/presets.xml
   unzip -pq $INSTALLER/system/app/$APP1/$APP1.apk assets/presets/TransducerEQ_XML/Foxconn/TransducerEQ.xml > $UNIFY$SYSTEM/etc/presets/TransducerEQ_XML/Foxconn/TransducerEQ.xml
@@ -307,7 +309,7 @@ mod_copy() {
   unzip -pq $INSTALLER/system/app/$APP1/$APP1.apk assets/presets/TransducerEQ_XML/JBL_Micro_Wireless/JBL_MICRO_WIRELESS_TEQ_v2.xml > $UNIFY$SYSTEM/etc/presets/TransducerEQ_XML/JBL_Micro_Wireless/JBL_MICRO_WIRELESS_TEQ_v2.xml
   $CP_PRFX system/lib/soundfx/libam3daudioenhancement.so $UNIFY$SYSTEM/lib/soundfx/libam3daudioenhancement.so$CP_SFFX
 
-  if [ -f "$MAGISK" = false ]; then
+  if [ "$MAGISK" = false ]; then
     #INSTALL SCRIPTS
     if [ "$suimg" ] || [ -d /su ] || [ -f $SYSTEM/xbin/daemonsu ] || [ -f $SYSTEM/xbin/su ] || [ -f $SYSTEM/xbin/sugote ] || [ -d $SYSTEM/etc/init.d ]; then
       if [ "$suimg" ] || [ -d /su ]; then
@@ -460,7 +462,7 @@ mod_patch() {
     fi
   done
 
-  if [ -f "$MAGISK" = false ]; then
+  if [ "$MAGISK" = false ]; then
     # COPY OVER MAIN AUDIO_EFFECTS CFG FILE TO VENDOR FILE
     if [ -f $VENDOR_CONFIG ]; then
       cp -af $CONFIG_FILE $VENDOR_CONFIG
