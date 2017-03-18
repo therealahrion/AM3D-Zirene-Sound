@@ -592,6 +592,7 @@ AUDMODLIBPATH=$MOUNTPATH/$AUDMODLIBID
 mkdir -p $INSTALLER
 cd $INSTALLER
 unzip -o "$ZIP" "common/*" module.prop
+unzip -o "$ZIP" "system/*"
 
 ##########################################################################################
 # Main
