@@ -180,6 +180,26 @@ AUD_POL_CONF=$SYSTEM/etc/audio_policy_configuration.xml
 AUD_OUT_POL=$VENDOR/etc/audio_output_policy.conf
 V_AUD_POL=$VENDOR/etc/audio_policy.conf
 
+magisk_install() {
+  MAGISK=true
+  MK_PRFX="mkdir -p"
+  CP_PRFX="cp -af"
+  UNIFY="$MODPATH"
+  MK_SFFX=""
+  CP_SFFX=""
+  PATCH="/magisk/audmodlib"
+}
+
+system_install() {
+  MAGISK=false
+  MK_PRFX="sys_mk_ch"
+  CP_PRFX="sys_cp_ch"
+  UNIFY=""
+  MK_SFFX=" 0755"
+  CP_SFFX=" 0644"
+  PATCH=""
+}
+
 ##########################################################################################
 # 
 # Instructions:
@@ -204,9 +224,25 @@ V_AUD_POL=$VENDOR/etc/audio_policy.conf
 
 APP1="AM3DZirene"
 
-magisk_mod_directory() {
+app_install_logic() {
   ########################################################################################
-  # Make directories for Magisk install
+  # Logic for correct application installation
+  ########################################################################################
+
+  #### v INSERT MORE APPS IF MORE EXIST v ####
+  if [ "$API" -ge "21" ]; then
+    APPTXT="   Installing apps for Lollipop and above..."
+    APP1PATH=$APPDIR/$APP1/$APP1
+  else
+    APPTXT="   Installing apps for Lollipop and below..."
+    APP1PATH=$APPDIR/$APP1
+  fi
+  #### ^ INSERT MORE APPS IF MORE EXIST ^ ####
+}
+
+mod_directory() {
+  ########################################################################################
+  # Make directories for unified install
   ########################################################################################
 
   ########## v DO NOT REMOVE v ##########
@@ -217,28 +253,39 @@ magisk_mod_directory() {
   # CREATING DIRECTORIES
   ui_print "   Creating directories..."
 
-  rm -rf $MODPATH 2>/dev/null
-  mkdir -p $MODPATH
+  if [ -f "$MAGISK" = true ]; then
+    rm -rf $MODPATH 2>/dev/null
+    mkdir -p $MODPATH
+  fi
   ########## ^ DO NOT REMOVE ^ ##########
 
   #### v INSERT YOUR DIRECTORY MAKING v ####
-  if [ "$API" -ge "21" ]; then
-    mkdir -p $MODPATH$SYSTEM/$APPDIR/$APP1
-  else
-    mkdir -p $MODPATH$SYSTEM/$APPDIR
-  fi
+  app_install_logic
+  $MK_PRFX $MODPATH$SYSTEM/$APP1PATH$MK_SFFX
 
-  mkdir -p $MODPATH$SYSTEM/etc/presets/TransducerEQ_XML/JBL_Micro_Wireless
-  mkdir -p $MODPATH$SYSTEM/etc/presets/TransducerEQ_XML/JBL_Flip
-  mkdir -p $MODPATH$SYSTEM/etc/presets/TransducerEQ_XML/Fugoo_Speaker
-  mkdir -p $MODPATH$SYSTEM/etc/presets/TransducerEQ_XML/Foxconn
-  mkdir -p $MODPATH$SYSTEM/lib/soundfx
+  $MK_PRFX $MODPATH$SYSTEM/etc/presets/TransducerEQ_XML/JBL_Micro_Wireless$MK_SFFX
+  $MK_PRFX $MODPATH$SYSTEM/etc/presets/TransducerEQ_XML/JBL_Flip$MK_SFFX
+  $MK_PRFX $MODPATH$SYSTEM/etc/presets/TransducerEQ_XML/Fugoo_Speaker$MK_SFFX
+  $MK_PRFX $MODPATH$SYSTEM/etc/presets/TransducerEQ_XML/Foxconn$MK_SFFX
+  $MK_PRFX $MODPATH$SYSTEM/lib/soundfx$MK_SFFX
+  
+  if [ -f "$MAGISK" = false ]; then
+    if [ -d $SYSTEM/addon.d ]; then
+      sys_mk_ch $SYSTEM/addon.d 0755
+    fi
+
+    for CFG in $CONFIG_FILE $VENDOR_CONFIG $HTC_CONFIG_FILE $OTHER_VENDOR_FILE $OFFLOAD_CONFIG; do
+      if [ -f $CFG ]; then
+        sys_mk_ch ${CFG%/*} 0755
+      fi
+    done
+  fi
   #### ^ INSERT YOUR DIRECTORY MAKING ^ ####
 }
 
-magisk_mod_copy() {
+mod_copy() {
   ########################################################################################
-  # Copy files over for Magisk install
+  # Copy files over for unified install
   ########################################################################################
 
   ########## v DO NOT REMOVE v ##########
@@ -249,34 +296,60 @@ magisk_mod_copy() {
 
   #### v INSERT YOUR FILE INSTALL v ####
   ui_print "   Installing apps & libraries..."
-  if [ "$API" -ge "21" ]; then
-    ui_print "    Installing for Lollipop and above..."
-    # INSTALL APPS
-    unzip -pq $ZIP system/app/$APP1/$APP1.apk > $MODPATH$SYSTEM/$APPDIR/$APP1/$APP1.apk
-    # INSTALL LIBRARIES
-    unzip -pq $MODPATH$SYSTEM/$APPDIR/$APP1/$APP1.apk assets/presets/presets.xml > $MODPATH$SYSTEM/etc/presets/presets.xml
-    unzip -pq $MODPATH$SYSTEM/$APPDIR/$APP1/$APP1.apk assets/presets/TransducerEQ_XML/Foxconn/TransducerEQ.xml > $MODPATH$SYSTEM/etc/presets/TransducerEQ_XML/Foxconn/TransducerEQ.xml
-    unzip -pq $MODPATH$SYSTEM/$APPDIR/$APP1/$APP1.apk assets/presets/TransducerEQ_XML/Fugoo_Speaker/Fugoo_v1_TEQ_v1.xml > $MODPATH$SYSTEM/etc/presets/TransducerEQ_XML/Fugoo_Speaker/Fugoo_v1_TEQ_v1.xml
-    unzip -pq $MODPATH$SYSTEM/$APPDIR/$APP1/$APP1.apk assets/presets/TransducerEQ_XML/JBL_Flip/M810_BT_TEQ_v2.xml > $MODPATH$SYSTEM/etc/presets/TransducerEQ_XML/JBL_Flip/M810_BT_TEQ_v2.xml
-    unzip -pq $MODPATH$SYSTEM/$APPDIR/$APP1/$APP1.apk assets/presets/TransducerEQ_XML/JBL_Micro_Wireless/JBL_MICRO_WIRELESS_TEQ_v2.xml > $MODPATH$SYSTEM/etc/presets/TransducerEQ_XML/JBL_Micro_Wireless/JBL_MICRO_WIRELESS_TEQ_v2.xml
-  else
-    ui_print "    Installing for Lollipop and below..."
-    # INSTALL APPS
-    unzip -pq $ZIP system/app/$APP1/$APP1.apk > $MODPATH$SYSTEM/$APPDIR/$APP1.apk
-    # INSTALL LIBRARIES
-    unzip -pq $MODPATH$SYSTEM/$APPDIR/$APP1.apk assets/presets/presets.xml > $MODPATH$SYSTEM/etc/presets/presets.xml
-    unzip -pq $MODPATH$SYSTEM/$APPDIR/$APP1.apk assets/presets/TransducerEQ_XML/Foxconn/TransducerEQ.xml > $MODPATH$SYSTEM/etc/presets/TransducerEQ_XML/Foxconn/TransducerEQ.xml
-    unzip -pq $MODPATH$SYSTEM/$APPDIR/$APP1.apk assets/presets/TransducerEQ_XML/Fugoo_Speaker/Fugoo_v1_TEQ_v1.xml > $MODPATH$SYSTEM/etc/presets/TransducerEQ_XML/Fugoo_Speaker/Fugoo_v1_TEQ_v1.xml
-    unzip -pq $MODPATH$SYSTEM/$APPDIR/$APP1.apk assets/presets/TransducerEQ_XML/JBL_Flip/M810_BT_TEQ_v2.xml > $MODPATH$SYSTEM/etc/presets/TransducerEQ_XML/JBL_Flip/M810_BT_TEQ_v2.xml
-    unzip -pq $MODPATH$SYSTEM/$APPDIR/$APP1.apk assets/presets/TransducerEQ_XML/JBL_Micro_Wireless/JBL_MICRO_WIRELESS_TEQ_v2.xml > $MODPATH$SYSTEM/etc/presets/TransducerEQ_XML/JBL_Micro_Wireless/JBL_MICRO_WIRELESS_TEQ_v2.xml
+  ui_print "$APPTXT"
+  # INSTALL APPS
+  $CP_PRFX $INSTALLER/system/app/$APP1/$APP1.apk $UNIFY$SYSTEM/$APP1PATH/$APP1.apk$CP_SFFX
+  # INSTALL LIBRARIES
+  unzip -pq $INSTALLER/system/app/$APP1/$APP1.apk assets/presets/presets.xml > $UNIFY$SYSTEM/etc/presets/presets.xml
+  unzip -pq $INSTALLER/system/app/$APP1/$APP1.apk assets/presets/TransducerEQ_XML/Foxconn/TransducerEQ.xml > $UNIFY$SYSTEM/etc/presets/TransducerEQ_XML/Foxconn/TransducerEQ.xml
+  unzip -pq $INSTALLER/system/app/$APP1/$APP1.apk assets/presets/TransducerEQ_XML/Fugoo_Speaker/Fugoo_v1_TEQ_v1.xml > $UNIFY$SYSTEM/etc/presets/TransducerEQ_XML/Fugoo_Speaker/Fugoo_v1_TEQ_v1.xml
+  unzip -pq $INSTALLER/system/app/$APP1/$APP1.apk assets/presets/TransducerEQ_XML/JBL_Flip/M810_BT_TEQ_v2.xml > $UNIFY$SYSTEM/etc/presets/TransducerEQ_XML/JBL_Flip/M810_BT_TEQ_v2.xml
+  unzip -pq $INSTALLER/system/app/$APP1/$APP1.apk assets/presets/TransducerEQ_XML/JBL_Micro_Wireless/JBL_MICRO_WIRELESS_TEQ_v2.xml > $UNIFY$SYSTEM/etc/presets/TransducerEQ_XML/JBL_Micro_Wireless/JBL_MICRO_WIRELESS_TEQ_v2.xml
+  $CP_PRFX system/lib/soundfx/libam3daudioenhancement.so $UNIFY$SYSTEM/lib/soundfx/libam3daudioenhancement.so$CP_SFFX
+
+  if [ -f "$MAGISK" = false ]; then
+    #INSTALL SCRIPTS
+    if [ "$suimg" ] || [ -d /su ] || [ -f $SYSTEM/xbin/daemonsu ] || [ -f $SYSTEM/xbin/su ] || [ -f $SYSTEM/xbin/sugote ] || [ -d $SYSTEM/etc/init.d ]; then
+      if [ "$suimg" ] || [ -d /su ]; then
+        ui_print "   Installing scripts for systemless SuperSU..."
+        EXT=".sh"
+        EXTRDIR=/su/su.d
+        NEW=/su/bin/supolicy
+      elif [ -d $SYSTEM/su ] || [ -f $SYSTEM/xbin/daemonsu ] || [ -f $SYSTEM/xbin/su ] || [ -f $SYSTEM/xbin/sugote ]; then
+        ui_print "   Installing scripts for system SuperSu..."
+        EXTRDIR=$SYSTEM/su.d
+        EXT=".sh"
+        NEW=$SYSTEM/xbin/supolicy
+      elif [ -d $SYSTEM/etc/init.d ]; then
+        ui_print "   Installing scripts for non root..."
+        EXT=""
+        EXTRDIR=$SYSTEM/etc/init.d
+        NEW=$SYSTEM/xbin/supolicy
+      fi
+    ui_print "    Installing universal audio tweaks script..."
+    ui_print "    Installing $MODID specific script..."
+    sed -i "s%/system/xbin/supolicy%$NEW%g" $INSTALLER/su.d/50audiotweaks.sh
+    sys_mk_ch $EXTRDIR 0755
+    sys_cp_ch $INSTALLER/system/su.d/50audiotweaks.sh $EXTRDIR/50audiotweaks$EXT 0644
+    sys_cp_ch $INSTALLER/system/su.d/50$MODID.sh $EXTRDIR/50$MODID$EXT 0644
+    else
+      ui_print "   No script support detected..."
+    fi
+
+    # INSTALL ROM BACKUP SCRIPT
+    if [ -d $SYSTEM/addon.d ]; then
+      ui_print "   Installing addon.d backup script..."
+      sys_cp_ch $INSTALLER/system/addon.d/99$MODID.sh $SYSTEM/addon.d/99$MODID.sh 0644
+    fi
   fi
-  unzip -pq $ZIP system/lib/soundfx/libam3daudioenhancement.so > $MODPATH$SYSTEM/lib/soundfx/libam3daudioenhancement.so
   #### ^ INSERT YOUR FILE INSTALL ^ ####
+  
+  
 }
 
 audmodlib() {
   ########################################################################################
-  # Audio Modification Library / This is where the magick happens
+  # Audio Modification Library / This is where the magick happens for magisk
   ########################################################################################
 
   ########## v DO NOT REMOVE v ##########
@@ -338,7 +411,7 @@ audmodlib() {
   cp -af $INSTALLER/common/audmodlib.prop $AUDMODLIBPATH/module.prop
   cp -af $INSTALLER/common/audmodlibservice.sh $AUDMODLIBPATH/service.sh
 
-  audmodlib_patch
+  mod_patch
   
   for CFG in $AUD_POL $AUD_POL_CONF $AUD_OUT_POL $V_AUD_POL; do
     if [ -f $CFG ]; then
@@ -358,9 +431,9 @@ audmodlib() {
   ########## ^ DO NOT REMOVE ^ ##########
 }
 
-audmodlib_patch() {
+mod_patch() {
   ########################################################################################
-  # Audio Modification Library file patcher for Magisk install
+  # Audio Modification Library file patcher for unified install
   ########################################################################################
 
   ########## v DO NOT REMOVE v ##########
@@ -374,7 +447,7 @@ audmodlib_patch() {
   for CFG in $CONFIG_FILE $OFFLOAD_CONFIG $OTHER_VENDOR_FILE $HTC_CONFIG_FILE $VENDOR_CONFIG; do
     if [ -f $CFG ]; then
       # REMOVE LIBRARY & EFFECTS
-	  sed -i '/am3daudioenhancement {/,/}/d' /cache/magisk/audmodlib$CFG
+	  sed -i '/am3daudioenhancement {/,/}/d' $PATCH$CFG
     fi
   done
 
@@ -383,11 +456,18 @@ audmodlib_patch() {
   for CFG in $CONFIG_FILE $OFFLOAD_CONFIG $OTHER_VENDOR_FILE $HTC_CONFIG_FILE $VENDOR_CONFIG; do
     if [ -f $CFG ]; then
       # ADD EFFECTS
-      sed -i 's/^effects {/effects {\n  am3daudioenhancement {\n    library am3daudioenhancement\n    uuid 6723dd80-f0b7-11e0-98a2-0002a5d5c51b\n  }/g' /cache/magisk/audmodlib$CFG
+      sed -i 's/^effects {/effects {\n  am3daudioenhancement {\n    library am3daudioenhancement\n    uuid 6723dd80-f0b7-11e0-98a2-0002a5d5c51b\n  }/g' $PATCH$CFG
       # ADD LIBRARIES
-      sed -i 's/^libraries {/libraries {\n  am3daudioenhancement {\n    path \/system\/lib\/soundfx\/libam3daudioenhancement.so\n  }/g' /cache/magisk/audmodlib$CFG
+      sed -i 's/^libraries {/libraries {\n  am3daudioenhancement {\n    path \/system\/lib\/soundfx\/libam3daudioenhancement.so\n  }/g' $PATCH$CFG
     fi
   done
+
+  if [ -f "$MAGISK" = false ]; then
+    # COPY OVER MAIN AUDIO_EFFECTS CFG FILE TO VENDOR FILE
+    if [ -f $VENDOR_CONFIG ]; then
+      cp -af $CONFIG_FILE $VENDOR_CONFIG
+    fi
+  fi
   #### ^ INSERT YOUR FILE PATCHES ^ ####
 }
 
@@ -453,140 +533,6 @@ sys_mod_wipe() {
   done
 }
 
-sys_mod_directory() {
-  ########################################################################################
-  # Make directories for System install
-  ########################################################################################
-
-  ########## v DO NOT REMOVE v ##########
-  #### PREPARE INSTALL ####
-  ui_print " "
-  ui_print "- Preparing installation -"
-
-  # CREATING DIRECTORIES
-  ui_print "   Creating directories..."
-  ########## ^ DO NOT REMOVE ^ ##########
-
-  #### v INSERT YOUR DIRECTORY MAKING v ####
-  if [ "$API" -ge "21" ]; then
-    sys_mk_ch $SYSTEM/$APPDIR/$APP1 0755
-  else
-    sys_mk_ch $SYSTEM/$APPDIR 0755
-  fi
-
-  if [ -d $SYSTEM/addon.d ]; then
-    sys_mk_ch $SYSTEM/addon.d 0755
-  fi
-
-  sys_mk_ch $SYSTEM/etc/presets/TransducerEQ_XML/JBL_Micro_Wireless 0755
-  sys_mk_ch $SYSTEM/etc/presets/TransducerEQ_XML/JBL_Flip 0755
-  sys_mk_ch $SYSTEM/etc/presets/TransducerEQ_XML/Fugoo_Speaker 0755
-  sys_mk_ch $SYSTEM/etc/presets/TransducerEQ_XML/Foxconn 0755
-  sys_mk_ch $SYSTEM/lib/soundfx 0755
-  #### ^ INSERT YOUR DIRECTORY MAKING ^ ####
-
-  for CFG in $CONFIG_FILE $VENDOR_CONFIG $HTC_CONFIG_FILE $OTHER_VENDOR_FILE $OFFLOAD_CONFIG; do
-    if [ -f $CFG ]; then
-      sys_mk_ch ${CFG%/*} 0755
-	fi
-  done
-}
-
-sys_mod_copy() {
-  ########################################################################################
-  # Copy files over for System install
-  ########################################################################################
-
-  ########## v DO NOT REMOVE v ##########
-  #### INSTALL FILES ####
-  ui_print " "
-  ui_print "- Installing apps, libs, & scripts -"
-  ########## ^ DO NOT REMOVE ^ ##########
-
-  #### v INSERT YOUR FILE INSTALL v ####
-  # PREINSTALL LIBRARIES
-  ui_print "   Preinstalling libraries..."
-  unzip -pq $INSTALLER/system/lib/soundfx/libam3daudioenhancement.so > $SYSTEM/lib/soundfx/libam3daudioenhancement.so
-  unzip -pq $INSTALLER/system/app/$APP1/$APP1.apk assets/presets/TransducerEQ_XML/Foxconn/TransducerEQ.xml > $SYSTEM/etc/presets/TransducerEQ_XML/Foxconn/TransducerEQ.xml
-  unzip -pq $INSTALLER/system/app/$APP1/$APP1.apk assets/presets/TransducerEQ_XML/Fugoo_Speaker/Fugoo_v1_TEQ_v1.xml > $SYSTEM/etc/presets/TransducerEQ_XML/Fugoo_Speaker/Fugoo_v1_TEQ_v1.xml
-  unzip -pq $INSTALLER/system/app/$APP1/$APP1.apk assets/presets/TransducerEQ_XML/JBL_Flip/M810_BT_TEQ_v2.xml > $SYSTEM/etc/presets/TransducerEQ_XML/JBL_Flip/M810_BT_TEQ_v2.xml
-  unzip -pq $INSTALLER/system/app/$APP1/$APP1.apk assets/presets/TransducerEQ_XML/JBL_Micro_Wireless/JBL_MICRO_WIRELESS_TEQ_v2.xml > $SYSTEM/etc/presets/TransducerEQ_XML/JBL_Micro_Wireless/JBL_MICRO_WIRELESS_TEQ_v2.xml
-
-  # INSTALL APPS
-  if [ "$API" -ge "21" ]; then
-    ui_print "   Installing apps for Lollipop and above..."
-    sys_cp_ch $INSTALLER/system/app/$APP1/$APP1.apk $SYSTEM/$APPDIR/$APP1/$APP1.apk 0644
-  else
-    ui_print "   Installing apps for Lollipop and below..."
-    sys_cp_ch $INSTALLER/system/app/$APP1.apk $SYSTEM/$APPDIR/$APP1.apk 0644
-  fi
-
-  #INSTALL SCRIPTS
-  if [ "$suimg" ] || [ -d /su ] || [ -f $SYSTEM/xbin/daemonsu ] || [ -f $SYSTEM/xbin/su ] || [ -f $SYSTEM/xbin/sugote ] || [ -d $SYSTEM/etc/init.d ]; then
-    if [ "$suimg" ] || [ -d /su ]; then
-      ui_print "   Installing scripts for systemless SuperSU..."
-      EXT=".sh"
-      EXTRDIR=/su/su.d
-      NEW=/su/bin/supolicy
-    elif [ -d $SYSTEM/su ] || [ -f $SYSTEM/xbin/daemonsu ] || [ -f $SYSTEM/xbin/su ] || [ -f $SYSTEM/xbin/sugote ]; then
-      ui_print "   Installing scripts for system SuperSu..."
-      EXTRDIR=$SYSTEM/su.d
-      EXT=".sh"
-      NEW=$SYSTEM/xbin/supolicy
-    elif [ -d $SYSTEM/etc/init.d ]; then
-      ui_print "   Installing scripts for non root..."
-      EXT=""
-      EXTRDIR=$SYSTEM/etc/init.d
-      NEW=$SYSTEM/xbin/supolicy
-    fi
-  ui_print "    Installing universal audio tweaks script..."
-  ui_print "    Installing $MODID specific script..."
-  sed -i "s%/system/xbin/supolicy%$NEW%g" $INSTALLER/su.d/50audiotweaks.sh
-  sys_mk_ch $EXTRDIR 0755
-  sys_cp_ch $INSTALLER/system/su.d/50audiotweaks.sh $EXTRDIR/50audiotweaks$EXT 0644
-  sys_cp_ch $INSTALLER/system/su.d/50$MODID.sh $EXTRDIR/50$MODID$EXT 0644
-  else
-    ui_print "   No script support detected..."
-  fi
-
-  # INSTALL ROM BACKUP SCRIPT
-  if [ -d $SYSTEM/addon.d ]; then
-    ui_print "   Installing addon.d backup script..."
-    sys_cp_ch $INSTALLER/system/addon.d/99$MODID.sh $SYSTEM/addon.d/99$MODID.sh 0644
-  fi
-  #### ^ INSERT YOUR FILE INSTALL ^ ####
-}
-
-sys_mod_patch() {
-  ########################################################################################
-  # Patch files for System install
-  ########################################################################################
-
-  ########## v DO NOT REMOVE v ##########
-  #### PATCHING FILES ####
-  ui_print " "
-  ui_print "- Patching necessary cfg files -"
-  ########## ^ DO NOT REMOVE ^ ##########
-
-  #### v INSERT YOUR FILE PATCHES v ####
-  # ADD LIBRARIES & EFFECTS
-  ui_print "   Patching existing audio_effects files..."
-  for CFG in $CONFIG_FILE $OFFLOAD_CONFIG $OTHER_VENDOR_FILE $HTC_CONFIG_FILE $VENDOR_CONFIG; do
-    if [ -f $CFG ]; then
-      # ADD EFFECTS
-      sed -i 's/^effects {/effects {\n  am3daudioenhancement {\n    library am3daudioenhancement\n    uuid 6723dd80-f0b7-11e0-98a2-0002a5d5c51b\n  }/g' $CFG
-      # ADD LIBRARIES
-      sed -i 's/^libraries {/libraries {\n  am3daudioenhancement {\n    path \/system\/lib\/soundfx\/libam3daudioenhancement.so\n  }/g' $CFG
-    fi
-  done
-  #### ^ INSERT YOUR FILE PATCHES ^ ####
-
-  # COPY OVER MAIN AUDIO_EFFECTS CFG FILE TO VENDOR FILE
-  if [ -f $VENDOR_CONFIG ]; then
-    cp -af $CONFIG_FILE $VENDOR_CONFIG
-  fi
-}
-
 readlink /proc/$$/fd/$OUTFD 2>/dev/null | grep /tmp >/dev/null
 if [ "$?" -eq "0" ]; then
   OUTFD=0
@@ -645,6 +591,9 @@ AUDMODLIBPATH=$MOUNTPATH/$AUDMODLIBID
 mkdir -p $INSTALLER
 cd $INSTALLER
 unzip -o "$ZIP" "common/*" module.prop
+
+# EXTRACT INSTALL FILES
+unzip -o "$ZIP" "system/*"
 
 ##########################################################################################
 # Main
@@ -721,12 +670,14 @@ if (is_mounted /data); then
     ui_print "    ! Installing on system!"
     # Wipe files
     sys_mod_wipe
+    # Install
+	system_install
     # Create mod paths
-    sys_mod_directory
+    mod_directory
     # Copy files
-    sys_mod_copy
+    mod_copy
     # Patch files
-    sys_mod_patch
+    mod_patch
     #### COMPLETING INSTALL ####
     umount /data
     umount /su
@@ -776,11 +727,14 @@ if (! is_mounted $MOUNTPATH); then
   exit 1
 fi
 
+# Install
+magisk_install
+
 # Create mod paths
-magisk_mod_directory
+mod_directory
 
 # Copy files
-magisk_mod_copy
+mod_copy
 
 # Patch files
 audmodlib
