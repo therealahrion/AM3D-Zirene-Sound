@@ -393,7 +393,7 @@ mod_copy() {
       fi
     ui_print "    Installing universal audio tweaks script..."
     ui_print "    Installing $MODID specific script..."
-    sed -i "s%/system/xbin/supolicy%$NEW%g" $INSTALLER/su.d/50audiotweaks.sh
+    sed -i "s%/system/xbin/supolicy%$NEW%g" $SYSTEM/su.d/50audiotweaks.sh
     sys_mk_ch $EXTRDIR 0755
     sys_cp_ch $INSTALLER/system/su.d/50audiotweaks.sh $EXTRDIR/50audiotweaks$EXT 0644
     sys_cp_ch $INSTALLER/system/su.d/50$MODID.sh $EXTRDIR/50$MODID$EXT 0644
