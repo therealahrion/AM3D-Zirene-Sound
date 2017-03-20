@@ -5,7 +5,7 @@ This module enables Zirene® Sound by AM3D. [More details in support thread](htt
 * Android Jellybean+
 * Magisk install (MagiskSU/SuperSU)
 * System install
-* Works with Dolby Atmos & ViPER4Android
+* Works with Dolby Atmos® & ViPER4Android
 
 ### Credits
 * AM3D (http://www.am3d.com/home-english/products/zirene%C2%AE-sound.aspx)
