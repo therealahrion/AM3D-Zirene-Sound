@@ -1,18 +1,31 @@
-# AM3D Zirene® Sound
-This module enables Zirene® Sound by AM3D. [More details in support thread](https://forum.xda-developers.com/android/apps-games/mod-zirene-sound-am3d-t3396698).
+# AM3D Zirene Sound
+This module enables AM3D Zirene Sound. [More details in support thread](https://forum.xda-developers.com/android/apps-games/mod-zirene-sound-am3d-t3396698).
+
+#### Dependencies
+* [Audio Modification Library](https://forum.xda-developers.com/apps/magisk/module-audio-modification-library-t3579612) by ahrion @ XDA Developers
 
 ## Compatibility
 * Android Jellybean+
 * Magisk install (MagiskSU/SuperSU)
-* System install
-* Works with Dolby Atmos® & ViPER4Android
+* Pixel support
+* System install (SELinux Permissive only)
+* Works with [Dolby Atmos](https://github.com/therealahrion/Dolby-Atmos-ZTE-Axon-7) & ViPER4Android [FX](https://forum.xda-developers.com/apps/magisk/module-viper4android-fx-2-5-0-5-t3577058)/XHiFi
 
 ### Credits
-* AM3D (http://www.am3d.com/home-english/products/zirene%C2%AE-sound.aspx)
+* [AM3D](http://www.am3d.com/home-english/products/zirene%C2%AE-sound.aspx)
+
+#### Source Code
+* Module [GitHub](https://github.com/therealahrion/AM3D-Zirene-Sound)
 
 ## Change Log
-2.1
+v2.2
+	- Added audmodlib.sh post-fs-data.d script
+	- Install script fixes
+	- post-fs-data.d script fixes
+    - Push AudModLib v1.2 hotfixes
+
+v2.1
     - AudModLib v1.1 hotfix for bootloops issues on some devices
 
-2.0
+v2.0
     - Initial Magisk release

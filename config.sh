@@ -55,7 +55,7 @@ print_modname() {
   ui_print "      *          AM3D Zirene® Sound          *"
   ui_print "      ****************************************"
   ui_print "      *           Universal - Mod            *"
-  ui_print "      *             Version 2.0              *"
+  ui_print "      *             Version 2.2              *"
   ui_print "      *              by ahrion               *"
   ui_print "      ****************************************"
   ui_print " "
