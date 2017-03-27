@@ -44,7 +44,6 @@ if [ ! -d /magisk/$MODID ]; then
   for CFG in $CONFIG_FILE $OFFLOAD_CONFIG $OTHER_VENDOR_FILE $HTC_CONFIG_FILE $VENDOR_CONFIG; do
     if [ -f $CFG ]; then
       sed -i '/am3daudioenhancement {/,/}/d' $AUDMODLIBPATH$CFG
-      sed -i '/am3daudioenhancement {/,/}/d' $CFG
     fi
   done
   #### ^ INSERT YOUR REMOVE PATCH OR RESTORE ^ ####
