@@ -1,7 +1,7 @@
 # AM3D Zirene Sound
 This module enables AM3D Zirene Sound. [More details in support thread](https://forum.xda-developers.com/android/apps-games/mod-zirene-sound-am3d-t3396698).
 
-#### Dependencies
+### Dependencies
 * [Audio Modification Library](https://forum.xda-developers.com/apps/magisk/module-audio-modification-library-t3579612) by ahrion @ XDA Developers
 
 ## Compatibility
@@ -10,12 +10,6 @@ This module enables AM3D Zirene Sound. [More details in support thread](https://
 * Pixel support
 * System install (SELinux Permissive only)
 * Works with [Dolby Atmos](https://github.com/therealahrion/Dolby-Atmos-ZTE-Axon-7) & ViPER4Android [FX](https://forum.xda-developers.com/apps/magisk/module-viper4android-fx-2-5-0-5-t3577058)/XHiFi
-
-### Credits
-* [AM3D](http://www.am3d.com/home-english/products/zirene%C2%AE-sound.aspx)
-
-#### Source Code
-* Module [GitHub](https://github.com/therealahrion/AM3D-Zirene-Sound)
 
 ## Change Log
 v2.2
@@ -29,3 +23,9 @@ v2.1
 
 v2.0
     - Initial Magisk release
+
+## Credits
+* [AM3D](http://www.am3d.com/home-english/products/zirene%C2%AE-sound.aspx)
+
+## Source Code
+* Module [GitHub](https://github.com/therealahrion/AM3D-Zirene-Sound)
