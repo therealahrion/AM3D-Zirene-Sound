@@ -484,7 +484,6 @@ magisk_audmodlib() {
   done
 
   cp -af $INSTALLER/common/audmodlibmodule.prop $AUDMODLIBPATH/module.prop
-  cp -af $INSTALLER/common/audmodlibservice.sh $AUDMODLIBPATH/service.sh
 
   unified_mod_patch
   
@@ -778,7 +777,6 @@ fi
 # service mode scripts
 if $LATESTARTSERVICE; then
   cp -af $INSTALLER/common/service.sh $MODPATH/service.sh
-  cp -af $INSTALLER/common/audmodlibservice.sh $AUDMODLIBPATH/service.sh
 fi
 
 #### COMPLETING INSTALL ####

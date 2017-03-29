@@ -13,6 +13,3 @@ setprop sys.keep_app_1 com.fihtdc.am3dfx.todo
 PPID=$(pidof com.fihtdc.am3dfx.todo)
 echo "-17" > /proc/$PPID/oom_adj
 renice -18 $PPID
-
-# SCRIPT BY ahrion@XDA
-# DO NOT STEAL
