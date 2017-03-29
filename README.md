@@ -15,6 +15,7 @@ This module enables AM3D Zirene Sound. [More details in support thread](https://
 v2.3
 	- AudModLib v1.3 update push which includes the script addition to allow various audio mods working with SELinux Enforcing
 	- Remove (audmodlib)service.sh and replace with pos-fs-data(.d) audmodlib.sh, which should fix when root may be lost upon installing certain mods
+	- Remove force SELinux Permissive post-fs-data script "setenforce 0"
 	- System install will now have the same script updates as the AudModLib v1.3 to allow to work in SELinux Enforcing
 
 v2.2
