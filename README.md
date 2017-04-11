@@ -31,13 +31,13 @@ v2.2
 	- Added audmodlib.sh post-fs-data.d script
 	- Install script fixes
 	- post-fs-data.d script fixes
-    - Push AudModLib v1.2 hotfixes
+	- Push AudModLib v1.2 hotfixes
 
 v2.1
-    - AudModLib v1.1 hotfix for bootloops issues on some devices
+	- AudModLib v1.1 hotfix for bootloops issues on some devices
 
 v2.0
-    - Initial Magisk release
+	- Initial Magisk release
 
 ## Credits
 * [AM3D](http://www.am3d.com/home-english/products/zirene%C2%AE-sound.aspx)
