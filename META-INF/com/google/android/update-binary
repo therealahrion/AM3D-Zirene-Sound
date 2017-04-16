@@ -471,10 +471,6 @@ magisk_audmodlib() {
       cp -af $SOURCEDIR$CFG /cache/magisk/audmodlib$CFG
     fi
   done
-
-  if [ -f $V_CONFIG_FILE ]; then
-    cp -af /cache/magisk/audmodlib$CONFIG_FILE /cache/magisk/audmodlib$V_CONFIG_FILE
-  fi
   
   set_perm_recursive  /cache/magisk/audmodlib  0  0  0755  0644
 
@@ -536,13 +532,6 @@ unified_mod_patch() {
       sed -i 's/^libraries {/libraries {\n  am3daudioenhancement {\n    path \/system\/lib\/soundfx\/libam3daudioenhancement.so\n  }/g' $UNITYPATCH$CFG
     fi
   done
-
-  if [ "$MAGISK" == false ]; then
-    # COPY OVER MAIN AUDIO_EFFECTS CFG FILE TO VENDOR FILE
-    if [ -f $V_CONFIG_FILE ]; then
-      cp -af $CONFIG_FILE $V_CONFIG_FILE
-    fi
-  fi
   #### ^ INSERT YOUR FILE PATCHES ^ ####
 }
 
