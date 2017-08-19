@@ -6,7 +6,7 @@ This module enables AM3D Zirene Sound. [More details in support thread](https://
 
 ## Compatibility
 * Android Jellybean+
-* Magisk install (MagiskSU/SuperSU)
+* Magisk install (MagiskSU)
 * Pixel support
 * System install
 * Works with [Dolby Atmos](https://github.com/therealahrion/Dolby-Atmos-ZTE-Axon-7) & ViPER4Android [FX](https://forum.xda-developers.com/apps/magisk/module-viper4android-fx-2-5-0-5-t3577058)/XHiFi
