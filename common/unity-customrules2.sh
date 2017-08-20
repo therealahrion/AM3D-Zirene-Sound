@@ -6,7 +6,7 @@
 # See instructions for TIMEOFEXEC values, do not remove it
 # Do not remove last 3 lines (the if statement). Add any files added in custom rules before the sed statement and uncomment the whole thing (ex: echo "$UNITY$SYS/lib/soundfx/libv4a_fx_ics.so" >> $INFO)
 # ^ DO NOT MODIFY ^
-TIMEOFEXEC=4
+TIMEOFEXEC=2
 $MK_PRFX $UNITY$SYS/etc/presets/TransducerEQ_XML/JBL_Micro_Wireless$MK_SFFX
 $MK_PRFX $UNITY$SYS/etc/presets/TransducerEQ_XML/JBL_Flip$MK_SFFX
 $MK_PRFX $UNITY$SYS/etc/presets/TransducerEQ_XML/Fugoo_Speaker$MK_SFFX

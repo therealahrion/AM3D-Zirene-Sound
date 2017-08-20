@@ -6,7 +6,7 @@
 # See instructions for TIMEOFEXEC values, do not remove it
 # Do not remove last 3 lines (the if statement). Add any files added in custom rules before the sed statement and uncomment the whole thing (ex: echo "$UNITY$SYS/lib/soundfx/libv4a_fx_ics.so" >> $INFO)
 # ^ DO NOT MODIFY ^
-TIMEOFEXEC=5
+TIMEOFEXEC=3
 unzip -pq $INSTALLER/system/app/$APP1/$APP1.apk assets/presets/presets.xml > $UNITY$SYS/etc/presets/presets.xml
 unzip -pq $INSTALLER/system/app/$APP1/$APP1.apk assets/presets/TransducerEQ_XML/Foxconn/TransducerEQ.xml > $UNITY$SYS/etc/presets/TransducerEQ_XML/Foxconn/TransducerEQ.xml
 unzip -pq $INSTALLER/system/app/$APP1/$APP1.apk assets/presets/TransducerEQ_XML/Fugoo_Speaker/Fugoo_v1_TEQ_v1.xml > $UNITY$SYS/etc/presets/TransducerEQ_XML/Fugoo_Speaker/Fugoo_v1_TEQ_v1.xml
