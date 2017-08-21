@@ -50,11 +50,11 @@ LATESTARTSERVICE=false
 print_modname() {
   ui_print " "
   ui_print "      ****************************************"
-  ui_print "      *          AM3D Zirene® Sound          *"
+  ui_print "      *<name>*"
   ui_print "      ****************************************"
   ui_print "      *           Universal - Mod            *"
-  ui_print "      *             Version 2.5              *"
-  ui_print "      *         by ahrion, zackptg5          *"
+  ui_print "      *<version>*"
+  ui_print "      *         by <author>*"
   ui_print "      ****************************************"
   ui_print " "
 }

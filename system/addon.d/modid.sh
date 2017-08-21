@@ -1,12 +1,10 @@
 #!/sbin/sh
-# 
-# /system/addon.d/am3dzs.sh
 #
 
 . /tmp/backuptool.functions
 
 #### v INSERT YOUR CONFIG.SH MODID v ####
-MODID=am3dzs
+MODID=<MODID>
 AUDMODLIBID=audmodlib
 #### ^ INSERT YOUR CONFIG.SH MODID ^ ####
 
@@ -85,28 +83,6 @@ case "$1" in
 	# Stub
   ;;
   post-restore)
-    #### v INSERT YOUR FILE PATCHES v ####
-    for CFG in $CONFIG_FILE $OFFLOAD_CONFIG $OTHER_V_FILE $HTC_CONFIG_FILE $V_CONFIG_FILE; do
-      if [ -f $CFG ]; then
-        # REMOVE LIBRARY & EFFECTS
-        sed -i '/am3daudioenhancement {/,/}/d' $CFG
-      fi
-    done
-
-    # ADD LIBRARIES & EFFECTS
-    for CFG in $CONFIG_FILE $OFFLOAD_CONFIG $OTHER_V_FILE $HTC_CONFIG_FILE $V_CONFIG_FILE; do
-      if [ -f $CFG ]; then
-        # ADD EFFECTS
-        sed -i 's/^effects {/effects {\n  am3daudioenhancement {\n    library am3daudioenhancement\n    uuid 6723dd80-f0b7-11e0-98a2-0002a5d5c51b\n  }/g' $CFG
-        # ADD LIBRARIES
-        sed -i 's/^libraries {/libraries {\n  am3daudioenhancement {\n    path \/system\/lib\/soundfx\/libam3daudioenhancement.so\n  }/g' $CFG
-      fi
-    done
-
-    # COPY OVER MAIN AUDIO_EFFECTS CFG FILE TO VENDOR FILE
-    if [ -f $V_CONFIG_FILE ]; then
-      cp -af $CONFIG_FILE $V_CONFIG_FILE
-    fi
-    #### ^ INSERT YOUR FILE PATCHES ^ ####
+    <PATCHES>
   ;;
 esac
