@@ -1,9 +1,10 @@
 id=AM3DZireneSound
 name=AM3D Zirene® Sound
-version=v3.0 (4.1020.02)
-versionCode=6
+version=v3.1 (4.1020.02)
+versionCode=7
 author=ahrion, zackptg5
 description=AM3D Zirene® Sound is a HD quality audio enhancement solution
 support=https://forum.xda-developers.com/android/apps-games/mod-zirene-sound-am3d-t3396698
 donate=https://github.com/therealahrion/AM3D-Zirene-Sound
-template=1400
+template=1410
+minVer=1400
