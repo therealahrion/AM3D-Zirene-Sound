@@ -14,7 +14,8 @@ This module enables JamesDSPManager.
 * Works with [AM3D Zirene Sound](https://forum.xda-developers.com/android/apps-games/mod-zirene-sound-am3d-t3396698/post71580634#post71580634), [Dolby Atmos](https://github.com/therealahrion/Dolby-Atmos-ZTE-Axon-7) & ViPER4Android [FX](https://forum.xda-developers.com/apps/magisk/module-viper4android-fx-2-5-0-5-t3577058)/XHiFi
 
 ## Change Log
-v1.0
+v1.0 (2017-10-11)
+* Based on JamesDSPManager Oct 11, 2017 build "High efficient convolution engine and Better linear phase bass boost"
 * Unity/AML v2.1: Updated for Magisk v14.2
 * Unity/AML v2.1: Updated to Magisk module template 1410
 * Unity/AML v2.1: Silently uninstall previous version before new version upgrades (this is to keep every upgrade install clean in cases where the new version doesnt include files the previous version may have included)
@@ -29,7 +30,6 @@ v1.0
 * Unity/AML v2.1: Fixed System install partition re-mounting
 * Unity/AML v2.1: Updated Instructions (for developers only)
 * Unity/AML v2.1: Various script fixes and improvements
-* More soon ...
 
 ## Credits
 * [james34602 - creator of JamesDSPManager](https://github.com/james34602/JamesDSPManager)
