@@ -1,3 +1,3 @@
-APPAM3DZireneSound
-$SYS/etc/presets
-$SYS/lib/soundfx/libam3daudioenhancement.so
+APPJamesDSPManager
+$SYS/lib/libjamesDSPImpulseToolbox.so
+$SYS/lib/soundfx/libjamesdsp.so

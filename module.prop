@@ -1,9 +1,9 @@
-id=AM3DZireneSound
-name=AM3D Zirene® Sound
-version=v3.1 (4.1020.02)
-versionCode=7
-author=ahrion, zackptg5
-description=AM3D Zirene® Sound is a HD quality audio enhancement solution
-support=https://forum.xda-developers.com/android/apps-games/mod-zirene-sound-am3d-t3396698
-donate=https://github.com/therealahrion/AM3D-Zirene-Sound
+id=JamesDSPManager
+name=JamesDSPManager for AudModLib
+version=v1.0 (2017-10-11)
+versionCode=1
+author=james34602, sambassador
+description=Audio DSP framework built on Android system framework layer that supports most ROMs
+support=https://github.com/james34602/JamesDSPManager
+donate=https://github.com/james34602/JamesDSPManager
 template=1410
