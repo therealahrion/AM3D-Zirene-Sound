@@ -45,3 +45,7 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# AM3D Zirene files not needed by this fork
+system/etc/*
+system/app/AM3DZireneSound/*
