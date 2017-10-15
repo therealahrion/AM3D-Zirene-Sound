@@ -1,8 +1,5 @@
-# JamesDSPManager for AudModLib
-This module enables JamesDSPManager.
-
-### Dependencies
-* [Audio Modification Library](https://forum.xda-developers.com/apps/magisk/module-audio-modification-library-t3579612) @ XDA Developers
+# JamesDSPManager for Magisk
+A Magisk module that enables JamesDSPManager. Thanks to the devs who made this possible - see credits below.
 
 ## Compatibility
 * Android Jellybean+
@@ -14,6 +11,11 @@ This module enables JamesDSPManager.
 * Works with [AM3D Zirene Sound](https://forum.xda-developers.com/android/apps-games/mod-zirene-sound-am3d-t3396698/post71580634#post71580634), [Dolby Atmos](https://github.com/therealahrion/Dolby-Atmos-ZTE-Axon-7) & ViPER4Android [FX](https://forum.xda-developers.com/apps/magisk/module-viper4android-fx-2-5-0-5-t3577058)/XHiFi
 
 ## Change Log
+v1.1 (2017-10-15)
+* Based on JamesDSPManager Oct 15, 2017 build "Increase convolution engine performance and minor bug fix"
+* Merged Audio Modification Library upstream changes
+* Added support for x86 (previous build only supported ARM/ARM64)
+
 v1.0 (2017-10-11)
 * Based on JamesDSPManager Oct 11, 2017 build "High efficient convolution engine and Better linear phase bass boost"
 * Unity/AML v2.1: Updated for Magisk v14.2
