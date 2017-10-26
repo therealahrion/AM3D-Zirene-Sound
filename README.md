@@ -6,12 +6,12 @@ This module enables AM3D Zirene Sound. [More details in support thread](https://
 
 ## Compatibility
 * Android Jellybean+
-* init.d (other root & rootless) - requires init.d support. If you don't have init.d support, try this: https://forum.xda-developers.com/android/software-hacking/mod-universal-init-d-injector-wip-t3692105
+* init.d (other root & rootless) - requires init.d support. If you don't have init.d support, try this: [Init.d Injector](https://forum.xda-developers.com/android/software-hacking/mod-universal-init-d-injector-wip-t3692105)
 * MagiskSU & SuperSU
 * Magisk & System install
 * Nexus/Pixel support (A/B OTA)
 * SELinux enforcing
-* Works with [Dolby Atmos](https://github.com/therealahrion/Dolby-Atmos-ZTE-Axon-7) & ViPER4Android [FX](https://forum.xda-developers.com/apps/magisk/module-viper4android-fx-2-5-0-5-t3577058)/XHiFi
+* Works with [Dolby Atmos](https://github.com/therealahrion/Dolby-Atmos-ZTE-Axon-7), [ViPER4AndroidFX](https://forum.xda-developers.com/apps/magisk/module-viper4android-fx-2-5-0-5-t3577058), & ViPER4AndroidXHiFi
 
 ## Change Log
 v3.1 - 10.20.2017
