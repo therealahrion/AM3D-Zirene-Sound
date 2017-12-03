@@ -5,3 +5,6 @@ for FILE in ${CFGS}; do
     sed -i 's/^libraries {/libraries {\n  am3daudioenhancement {\n    path \/system\/lib\/soundfx\/libam3daudioenhancement.so\n  }/g' $AMLPATH$FILE
   fi
 done
+# if [ ! -z $XML_PRFX ]; then
+  # # Enter xmlstarlet logic here
+# fi
