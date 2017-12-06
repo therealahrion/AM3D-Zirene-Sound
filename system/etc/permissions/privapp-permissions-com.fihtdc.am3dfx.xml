@@ -12,5 +12,5 @@
     <permission name="android.permission.BLUETOOTH_ADMIN"/>
     <permission name="android.permission.MANAGE_USERS"/>  
     <permission name="android.permission.BROADCAST_STICKY"/>  
-  </privapp-permissions>\
+  </privapp-permissions>
 </permissions>
