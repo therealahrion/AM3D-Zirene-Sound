@@ -16,6 +16,7 @@ This module enables AM3D Zirene Sound. [More details in support thread](https://
 ## Change Log
 ### v3.5 - 
 * Updated to Unity/AML v2.5
+* Added permissions file for oreo
 
 ### v3.4 - 11.30.2017
 * Updated to Unity/AML v2.4
