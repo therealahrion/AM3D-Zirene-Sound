@@ -7,8 +7,8 @@ for FILE in ${CFGS}; do
 done
 for FILE in ${CFGSXML}; do
   if [ ! "$(grep "am3daudioenhancement" $AMLPATH$FILE)" ]; then
-    sed -i "/<libraries>/ a\        <library name=\"am3daudioenhancement\" path=\"libam3daudioenhancement.so\"\/>" $AMLPATH$FILE
-    sed -i "/<effects>/ a\        <effect name=\"am3daudioenhancement\" library=\"am3daudioenhancement\" uuid=\"6723dd80-f0b7-11e0-98a2-0002a5d5c51b\"\/>" $AMLPATH$FILE
+    sed -i "/<libraries>/ a\        <library name=\"am3daudioenhancement\" path=\"libam3daudioenhancement.so\"\/><!--$MODID-->" $AMLPATH$FILE
+    sed -i "/<effects>/ a\        <effect name=\"am3daudioenhancement\" library=\"am3daudioenhancement\" uuid=\"6723dd80-f0b7-11e0-98a2-0002a5d5c51b\"\/><!--$MODID-->" $AMLPATH$FILE
   fi
 done
 # if [ ! -z $XML_PRFX ]; then
