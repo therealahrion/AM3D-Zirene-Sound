@@ -4,6 +4,3 @@ done
 for FILE in ${CFGSXML}; do
   sed -i '/<!--$MODID-->/d' $AMLPATH$FILE
 done
-# if [ ! -z $XML_PRFX ]; then
-  # # Enter xmlstarlet logic here
-# fi
