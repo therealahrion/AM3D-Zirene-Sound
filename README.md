@@ -14,6 +14,9 @@ This module enables AM3D Zirene Sound. [More details in support thread](https://
 * Works with [Dolby Atmos](https://github.com/therealahrion/Dolby-Atmos-ZTE-Axon-7), [ViPER4AndroidFX](https://forum.xda-developers.com/apps/magisk/module-viper4android-fx-2-5-0-5-t3577058), & ViPER4AndroidXHiFi
 
 ## Change Log
+### v3.7 - 12.26.2017
+* Updated to Unity/AML 2.7
+
 ### v3.6 - 12.25.2017
 * Updated to Unity/AML v2.6
 
