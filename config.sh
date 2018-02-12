@@ -31,10 +31,10 @@ AUTOMOUNT=true
 PROPFILE=false
 
 # Set to true if you need post-fs-data script
-POSTFSDATA=true
+POSTFSDATA=false
 
 # Set to true if you need late_start service script
-LATESTARTSERVICE=false
+LATESTARTSERVICE=true
 
 # Unity Variables
 # Uncomment and change 'MINAPI' and 'MAXAPI' to the minimum and maxium android version for your mod (note that magisk has it's own minimum api: 21 (lollipop))
