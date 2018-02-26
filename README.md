@@ -9,6 +9,7 @@ This module enables AM3D Zirene Sound. [More details in support thread](https://
 ## Change Log
 ### v1.5 - 2.xx.2018
 * Fixed vendor files in bootmode for devices with separate vendor partitions
+* Fix seg faults on system installs
 
 ### v1.4 - 2.16.2018
 * Add file backup on system installs
