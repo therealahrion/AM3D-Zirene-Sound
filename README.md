@@ -9,6 +9,7 @@ This module enables AM3D Zirene Sound. [More details in support thread](https://
 ## Change Log
 ### v1.5.2 - 3.xx.2018
 * Add soundalive and dha effect removal (needed for some samsung devices)
+* Fix permissions for prop files on system installs
 
 ### v1.5.1 - 3.18.2018
 * Unity v1.4 update
