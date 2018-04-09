@@ -7,7 +7,7 @@ This module enables AM3D Zirene Sound. [More details in support thread](https://
 * All root solutions (requires init.d support if not using magisk or supersu. Try [Init.d Injector](https://forum.xda-developers.com/android/software-hacking/mod-universal-init-d-injector-wip-t3692105))
 
 ## Change Log
-### v1.5.4 - 4.xx.2018
+### v1.5.4 - 4.9.2018
 * Use dynamic effect removal
 
 ### v1.5.3 - 3.30.2018
