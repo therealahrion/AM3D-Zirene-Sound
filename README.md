@@ -8,7 +8,7 @@ This module enables AM3D Zirene Sound. [More details in support thread](https://
 
 ## Change Log
 ### v1.6.7 - 12.9.2018
-* Unity v1.8.1 update
+* Unity v1.8.2 update
 
 ### v1.6.6 - 10.23.2018
 * Unity v1.7.2 update
