@@ -7,6 +7,9 @@ This module enables AM3D Zirene Sound. [More details in support thread](https://
 * All root solutions (requires init.d support if not using magisk or supersu. Try [Init.d Injector](https://forum.xda-developers.com/android/software-hacking/mod-universal-init-d-injector-wip-t3692105))
 
 ## Change Log
+### v1.9.2 - 2.8.2019
+* Unity v3.3 update - minapi is now 17
+
 ### v1.9.1 - 1.16.2019
 * Forgot to move apk back to priv-app (needed for unity 3.2)
 
